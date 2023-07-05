@@ -43,6 +43,13 @@ class LabAdapter(var context: Context):
         return itemList.size  //Count how may Items in the List
     }
 
+    //This is for filtering data
+    fun filterList(filterList: List<Lab>){
+        itemList = filterList
+        notifyDataSetChanged()
+    }
+
+
     //Earlier we mentioned item List is empty!
     //We will get data from our APi, then bring it to below function
     //The data you bring here must follow the Lab model
