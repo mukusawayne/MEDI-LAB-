@@ -31,6 +31,10 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(applicationContext)
         recyclerView.setHasFixedSize(true)
 
+
+    }//end Oncreate
+
+    fun fetchData(){
         //Go to the PAi get the data
         val api = "https://modcom.pythonanywhere.com/api/laboratories"
         val helper = ApiHelper(applicationContext)
@@ -57,11 +61,5 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-
-
-
-
-
-
-    }
+    }//end fetch data
 }
