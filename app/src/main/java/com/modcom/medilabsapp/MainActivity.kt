@@ -2,6 +2,8 @@ package com.modcom.medilabsapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,9 +19,13 @@ class MainActivity : AppCompatActivity() {
      lateinit var itemList: List<Lab>
      lateinit var labAdapter: LabAdapter
      lateinit var recyclerView: RecyclerView
+    lateinit var progress: ProgressBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        progress = findViewById(R.id.progress)
         recyclerView = findViewById(R.id.recycler)
         labAdapter = LabAdapter(applicationContext)
         recyclerView.layoutManager = LinearLayoutManager(applicationContext)
@@ -39,6 +45,7 @@ class MainActivity : AppCompatActivity() {
                 labAdapter.setListItems(itemList)
                 //For the sake of recycling/Looping items, add the adapter to recycler
                 recyclerView.adapter = labAdapter
+                progress.visibility = View.GONE
             }//end
 
             override fun onSuccess(result: JSONObject?) {
@@ -46,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(result: String?) {
-
+                progress.visibility = View.GONE
             }
 
         })
