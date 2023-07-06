@@ -32,6 +32,7 @@ class LabTestsActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(applicationContext)
         recyclerView.setHasFixedSize(true)
 
+        post_fetch()
 
     }//end oncreate
 
@@ -59,10 +60,7 @@ class LabTestsActivity : AppCompatActivity() {
             override fun onFailure(result: String?) {
 
             }
-
         })
-
-
     }//end fetch
 
 }

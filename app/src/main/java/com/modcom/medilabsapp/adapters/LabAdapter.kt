@@ -1,11 +1,13 @@
 package com.modcom.medilabsapp.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
+import com.modcom.medilabsapp.LabTestsActivity
 import com.modcom.medilabsapp.R
 import com.modcom.medilabsapp.models.Lab
 
@@ -37,6 +39,14 @@ class LabAdapter(var context: Context):
          lab_name.text = lab.lab_name
          permit_id.text = lab.permit_id
          email.text = lab.email
+        //When one Lab is clicked, Move to Lab tests Activity
+
+         holder.itemView.setOnClickListener {
+             val i = Intent(context, LabTestsActivity::class.java)
+             i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+             context.startActivity(i)
+         }
+
     }
 
     override fun getItemCount(): Int {
