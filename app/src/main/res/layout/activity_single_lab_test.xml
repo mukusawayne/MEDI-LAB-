@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SingleLabTest">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dummy ID"
+        android:fontFamily="@font/montserrat"
+        android:id="@+id/test_id"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginBottom="5dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dummy Discount"
+        android:id="@+id/test_discount"
+        android:fontFamily="@font/montserrat"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginBottom="5dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dummy Cost"
+        android:id="@+id/test_cost"
+        android:fontFamily="@font/montserrat"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginBottom="5dp"/>
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dummy Name"
+        android:fontFamily="@font/montserrat"
+        android:id="@+id/test_name"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginBottom="5dp"/>
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dummy Desc"
+        android:fontFamily="@font/montserrat"
+        android:id="@+id/test_description"
+        android:textStyle="normal"
+        android:textSize="20dp"
+        android:layout_marginBottom="5dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dummy Avalability"
+        android:fontFamily="@font/montserrat"
+        android:id="@+id/availability"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginBottom="5dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dummy Info"
+        android:fontFamily="@font/montserrat"
+        android:id="@+id/more_info"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginBottom="5dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text= "Add to Cart"
+        android:fontFamily="@font/montserrat"
+        android:layout_margin="10dp"
+        android:id="@+id/addcart"/>
+
+</LinearLayout>
