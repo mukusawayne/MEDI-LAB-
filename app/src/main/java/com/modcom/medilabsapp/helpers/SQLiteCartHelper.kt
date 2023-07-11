@@ -29,6 +29,7 @@ class SQLiteCartHelper(context: Context):
          values.put("lab_id", lab_id)
          //save
          val result:Long = db.insert("cart", null, values)
+
          if (result < 1){
              println("Failed to Add")
          }

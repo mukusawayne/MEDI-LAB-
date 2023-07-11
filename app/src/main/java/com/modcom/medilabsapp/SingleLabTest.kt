@@ -38,13 +38,5 @@ class SingleLabTest : AppCompatActivity() {
         tvtest_info.text = more_info
 
 
-
-
-
-
-
-
-
-
     }
 }
