@@ -1,90 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="10dp"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="5dp">
+
+<RelativeLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".SingleLabTest">
 
-    <com.google.android.material.textview.MaterialTextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dummy ID"
-        android:fontFamily="@font/montserrat"
-        android:id="@+id/test_id"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:layout_marginBottom="5dp"/>
+        android:id="@+id/linear1"
+        android:orientation="horizontal">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/labimage"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/screen1"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test Y"
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/test_name"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="5dp"/>
+    </LinearLayout>
 
-    <com.google.android.material.textview.MaterialTextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dummy Discount"
-        android:id="@+id/test_discount"
-        android:fontFamily="@font/montserrat"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:layout_marginBottom="5dp"/>
-
-    <com.google.android.material.textview.MaterialTextView
+        android:orientation="horizontal"
+        android:layout_below="@+id/linear1"
+        android:id="@+id/linear2">
+        <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Dummy Cost"
-        android:id="@+id/test_cost"
-        android:fontFamily="@font/montserrat"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:layout_marginBottom="5dp"/>
-
-
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Dummy Name"
-        android:fontFamily="@font/montserrat"
-        android:id="@+id/test_name"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:layout_marginBottom="5dp"/>
-
-
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Dummy Desc"
+        android:layout_height="match_parent"
+        android:text="Dummy Desc Dummy DescDummy scDummy DescDummy DescDummy DescDummy DescDummy DescDummy DescDummy Desc"
         android:fontFamily="@font/montserrat"
         android:id="@+id/test_description"
         android:textStyle="normal"
         android:textSize="20dp"
         android:layout_marginBottom="5dp"/>
+    </LinearLayout>
 
-    <com.google.android.material.textview.MaterialTextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dummy Avalability"
-        android:fontFamily="@font/montserrat"
-        android:id="@+id/availability"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:layout_marginBottom="5dp"/>
+        android:id="@+id/linear3"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/linear2">
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5% OFF"
+            android:id="@+id/test_discount"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textSize="45dp"
+            android:padding="10dp"
+            android:textColor="#FF9800"
+            android:layout_marginBottom="5dp"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="KES 2,300"
+            android:id="@+id/test_cost"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textSize="28dp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="5dp"/>
 
-    <com.google.android.material.textview.MaterialTextView
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dummy Info"
-        android:fontFamily="@font/montserrat"
-        android:id="@+id/more_info"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:layout_marginBottom="5dp"/>
+        android:id="@+id/linear4"
+        android:orientation="vertical"
+        android:layout_below="@id/linear3">
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dummy ID"
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/test_id"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_marginBottom="5dp"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dummy Avalability"
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/availability"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_marginBottom="5dp"/>
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dummy Info"
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/more_info"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_marginBottom="5dp"/>
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text= "Add to Cart"
+            android:fontFamily="@font/montserrat"
+            android:layout_margin="10dp"
+            android:id="@+id/addcart"/>
+    </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text= "Add to Cart"
-        android:fontFamily="@font/montserrat"
-        android:layout_margin="10dp"
-        android:id="@+id/addcart"/>
 
-</LinearLayout>
+</RelativeLayout>
+</androidx.cardview.widget.CardView>
