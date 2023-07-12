@@ -2,6 +2,7 @@ package com.modcom.medilabsapp.helpers
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
@@ -38,6 +39,29 @@ class SQLiteCartHelper(context: Context):
          }
     }//end
     //TODO GetRecords, Delete all, delete one, Gee Totals
+  //Count How may items are there in the cart table
+   fun getNumItems(): Int {
+       val db = this.readableDatabase
+        val result: Cursor = db.rawQuery("select * from cart", null)
+        //return result count
+        return result.count
+   } //end
+
+   //Clear all records
+   fun cleatCart(){
+       val db = this.writableDatabase
+       db.delete("cart", null, null)
+       println("Cart Cleared")
+       //TODO Toast , Refresh
+   } //end
+
+    //Remove One Item
+   fun clearCartById(test_id: String){
+       val db = this.writableDatabase
+       //Provide the test_id when deleting
+       db.delete("cart", "test_id=?", arrayOf(test_id))
+       println("Item Id $test_id Removed")
+   }//end
 
 
 
@@ -45,4 +69,23 @@ class SQLiteCartHelper(context: Context):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+66
 }
