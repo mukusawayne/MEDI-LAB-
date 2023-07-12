@@ -80,6 +80,15 @@ class SQLiteCartHelper(context: Context):
         }//end while
         return total
     }//End
+    //https://github.com/modcomlearning/MediLabApp
+    //Get all items from the Cart
+    fun getAllItems(): String{
+        val db = this.writableDatabase
+        val result: Cursor = db.rawQuery("select * from cart", null)
+        return result.toString() //?????
+        //The result should follow LabTestModel
+        //TODO Return the result that Matches the LabTestModel
+    }
 
 
 
