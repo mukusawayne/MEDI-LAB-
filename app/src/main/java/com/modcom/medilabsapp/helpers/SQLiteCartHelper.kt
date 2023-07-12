@@ -1,11 +1,13 @@
 package com.modcom.medilabsapp.helpers
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
+import java.util.zip.DeflaterOutputStream
 
 class SQLiteCartHelper(context: Context):
     SQLiteOpenHelper(context, "cart.db", null, 1) {
@@ -48,7 +50,7 @@ class SQLiteCartHelper(context: Context):
    } //end
 
    //Clear all records
-   fun cleatCart(){
+   fun clearCart(){
        val db = this.writableDatabase
        db.delete("cart", null, null)
        println("Cart Cleared")
@@ -61,9 +63,23 @@ class SQLiteCartHelper(context: Context):
        //Provide the test_id when deleting
        db.delete("cart", "test_id=?", arrayOf(test_id))
        println("Item Id $test_id Removed")
+        //TODO Toast , Refresh
    }//end
 
 
+    fun totalCost(): Double {
+        val db = this.readableDatabase
+        val result: Cursor = db.rawQuery("select SUM(test_cost) from cart",
+            null)
+        var total: Double = 0.0
+        while (result.moveToNext()){
+            //the cursor result returns a Lists of test_cost.
+            //Below result.getDouble(0) to retrieve the value from the first
+            // column of the current row
+            total += result.getDouble(0)
+        }//end while
+        return total
+    }//End
 
 
 
@@ -73,19 +89,4 @@ class SQLiteCartHelper(context: Context):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-66
 }
