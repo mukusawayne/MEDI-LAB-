@@ -1,9 +1,13 @@
 package com.modcom.medilabsapp
 
 import android.annotation.SuppressLint
+import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
+import com.modcom.medilabsapp.helpers.SQLiteCartHelper
 
 class SingleLabTest : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
@@ -37,6 +41,21 @@ class SingleLabTest : AppCompatActivity() {
         val more_info = intent.extras?.getString("more_info")
         tvtest_info.text = more_info
 
+        val addcart = findViewById<MaterialButton>(R.id.addcart)
+        addcart.setOnClickListener {
+            val helper = SQLiteCartHelper(applicationContext)
+            val lab_id = intent.extras?.getString("lab_id")
+            try {
+                helper.insert(test_id!!, test_name!!, test_cost!!,
+                    test_description!!, lab_id!!)
+            }
+            catch (e: Exception){
+                Toast.makeText(applicationContext, "An Error Occurred.",
+                    Toast.LENGTH_SHORT).show()
+            }
 
-    }
-}
+            //Done
+        }//end onclick
+
+    }//end oncreate
+}//end class

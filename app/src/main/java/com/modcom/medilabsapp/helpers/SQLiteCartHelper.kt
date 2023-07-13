@@ -28,6 +28,7 @@ class SQLiteCartHelper(context: Context):
     fun insert(test_id: String, test_name: String, test_cost: String,
     test_description: String, lab_id: String){
          val db = this.writableDatabase
+         //Select before insert see if ID already exsists
          val values = ContentValues()
          values.put("test_id", test_id)
          values.put("test_name", test_name)
@@ -39,7 +40,7 @@ class SQLiteCartHelper(context: Context):
 
          if (result < 1){
              println("Failed to Add")
-             Toast.makeText(context, "Failed To Add", Toast.LENGTH_SHORT).show()
+             Toast.makeText(context, "Item Already in Cart", Toast.LENGTH_SHORT).show()
          }
         else {
             println("Item Added To Cart")
