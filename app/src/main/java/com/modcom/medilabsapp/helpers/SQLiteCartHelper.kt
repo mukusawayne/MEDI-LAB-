@@ -7,10 +7,14 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
+import com.modcom.medilabsapp.models.LabTests
 import java.util.zip.DeflaterOutputStream
 
 class SQLiteCartHelper(context: Context):
     SQLiteOpenHelper(context, "cart.db", null, 1) {
+    //Make context visible to other functions
+    val context = context
+
     //SQLite helps store data Locally on your phone - You can CRUD
     override fun onCreate(sql: SQLiteDatabase?) {
            sql?.execSQL("CREATE TABLE IF NOT EXISTS cart(test_id Integer primary key, test_name varchar, test_cost Integer, lab_id Integer, test_description text)")
@@ -35,12 +39,14 @@ class SQLiteCartHelper(context: Context):
 
          if (result < 1){
              println("Failed to Add")
+             Toast.makeText(context, "Failed To Add", Toast.LENGTH_SHORT).show()
          }
         else {
             println("Item Added To Cart")
+             Toast.makeText(context, "Item Added to cart", Toast.LENGTH_SHORT).show()
          }
     }//end
-    //TODO GetRecords, Delete all, delete one, Gee Totals
+
   //Count How may items are there in the cart table
    fun getNumItems(): Int {
        val db = this.readableDatabase
@@ -54,7 +60,8 @@ class SQLiteCartHelper(context: Context):
        val db = this.writableDatabase
        db.delete("cart", null, null)
        println("Cart Cleared")
-       //TODO Toast , Refresh
+       Toast.makeText(context, "Cart Cleared", Toast.LENGTH_SHORT).show()
+
    } //end
 
     //Remove One Item
@@ -62,8 +69,8 @@ class SQLiteCartHelper(context: Context):
        val db = this.writableDatabase
        //Provide the test_id when deleting
        db.delete("cart", "test_id=?", arrayOf(test_id))
-       println("Item Id $test_id Removed")
-        //TODO Toast , Refresh
+        println("Item Id $test_id Removed")
+        Toast.makeText(context, "Item Id $test_id Removed", Toast.LENGTH_SHORT).show()
    }//end
 
 
@@ -82,13 +89,24 @@ class SQLiteCartHelper(context: Context):
     }//End
     //https://github.com/modcomlearning/MediLabApp
     //Get all items from the Cart
-    fun getAllItems(): String{
+    fun getAllItems(): ArrayList<LabTests> {
         val db = this.writableDatabase
+        val items = ArrayList<LabTests>()
         val result: Cursor = db.rawQuery("select * from cart", null)
-        return result.toString() //?????
-        //The result should follow LabTestModel
-        //TODO Return the result that Matches the LabTestModel
-    }//End getAllItems
+        //Lets Add  all  rows into the items arrayList
+        while (result.moveToNext())
+        {
+            val model = LabTests()
+            //Map rows to the model
+            model.test_id = result.getString(0)  //Assume one row, test_id
+            model.test_name = result.getString(1)  //Assume one row, test_name
+            model.test_cost = result.getString(2)  //Assume one row, test_cost
+            model.lab_id = result.getString(3)  //Assume one row, test_description
+            model.test_description = result.getString(4)  //Assume one row, test_description
+            items.add(model)//add model to ArrayList
+        }//end while
+        return items
+    }//end function
 
 
 
