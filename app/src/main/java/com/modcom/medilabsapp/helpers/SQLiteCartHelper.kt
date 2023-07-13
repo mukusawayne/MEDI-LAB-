@@ -32,9 +32,10 @@ class SQLiteCartHelper(context: Context):
          val values = ContentValues()
          values.put("test_id", test_id)
          values.put("test_name", test_name)
+        values.put("lab_id", lab_id)
          values.put("test_cost", test_cost)
          values.put("test_description", test_description)
-         values.put("lab_id", lab_id)
+
          //save
          val result:Long = db.insert("cart", null, values)
 

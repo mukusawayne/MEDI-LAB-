@@ -48,6 +48,7 @@ class SingleLabTest : AppCompatActivity() {
             try {
                 helper.insert(test_id!!, test_name!!, test_cost!!,
                     test_description!!, lab_id!!)
+
             }
             catch (e: Exception){
                 Toast.makeText(applicationContext, "An Error Occurred.",
