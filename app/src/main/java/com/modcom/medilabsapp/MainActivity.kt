@@ -1,9 +1,12 @@
 package com.modcom.medilabsapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -63,9 +66,9 @@ class MainActivity : AppCompatActivity() {
     }//end Oncreate
 
     fun fetchData(){
-        //Go to the PAi get the data
+        //Go to the PAi get the dataapplicationContextthis
         val api = "https://modcom.pythonanywhere.com/api/laboratories"
-        val helper = ApiHelper(applicationContext)
+        val helper = ApiHelper(this@MainActivity)
         helper.get(api, object: ApiHelper.CallBack{
             override fun onSuccess(result: JSONArray?) {
                 //Take above result to adapter
@@ -121,5 +124,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Start
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.mycart){
+            startActivity(Intent(applicationContext, MyCart::class.java))
+        }
+        return super.onOptionsItemSelected(item)
+    }
+    //End
 
 }

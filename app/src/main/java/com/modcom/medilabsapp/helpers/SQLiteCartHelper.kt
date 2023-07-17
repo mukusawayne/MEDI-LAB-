@@ -3,10 +3,13 @@ package com.modcom.medilabsapp.helpers
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
+import com.modcom.medilabsapp.MyCart
+import com.modcom.medilabsapp.SingleLabTest
 import com.modcom.medilabsapp.models.LabTests
 import java.util.zip.DeflaterOutputStream
 
@@ -63,6 +66,9 @@ class SQLiteCartHelper(context: Context):
        db.delete("cart", null, null)
        println("Cart Cleared")
        Toast.makeText(context, "Cart Cleared", Toast.LENGTH_SHORT).show()
+       val i = Intent(context, MyCart::class.java)
+       i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+       context.startActivity(i)
 
    } //end
 
@@ -73,6 +79,9 @@ class SQLiteCartHelper(context: Context):
        db.delete("cart", "test_id=?", arrayOf(test_id))
         println("Item Id $test_id Removed")
         Toast.makeText(context, "Item Id $test_id Removed", Toast.LENGTH_SHORT).show()
+        val i = Intent(context, MyCart::class.java)
+        i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        context.startActivity(i)
    }//end
 
 

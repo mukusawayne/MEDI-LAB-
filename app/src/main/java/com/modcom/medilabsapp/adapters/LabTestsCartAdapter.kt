@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import com.modcom.medilabsapp.LabTestsActivity
 import com.modcom.medilabsapp.R
 import com.modcom.medilabsapp.SingleLabTest
+import com.modcom.medilabsapp.helpers.SQLiteCartHelper
 import com.modcom.medilabsapp.models.Lab
 import com.modcom.medilabsapp.models.LabTests
 
@@ -42,6 +44,17 @@ class LabTestsCartAdapter(var context: Context):
          test_name.text = item.test_name
          test_description.text = item.test_description
          test_cost.text = item.test_cost+" KES"
+        //Find remove button and set Listener
+        val remove = holder.itemView.findViewById<MaterialButton>(R.id.remove)
+        remove.setOnClickListener {
+            val test_id = item.test_id
+            val helper = SQLiteCartHelper(context)
+            helper.clearCartById(test_id)
+            //The Item is Removed.
+            //Go to Helper and reload the MyCart Activity in clearCartById fun
+
+        }
+
 
 
        // Toast.makeText(context, "yyy"+item.test_cost, Toast.LENGTH_SHORT).show()

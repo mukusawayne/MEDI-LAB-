@@ -13,7 +13,7 @@ class Screen2 : AppCompatActivity() {
 
         val skip2 = findViewById<MaterialTextView>(R.id.skip2)
         skip2.setOnClickListener {
-            startActivity(Intent(applicationContext, MyCart::class.java))
+            startActivity(Intent(applicationContext, MainActivity::class.java))
         }//end
 
         val fab2 = findViewById<FloatingActionButton>(R.id.fab2)

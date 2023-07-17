@@ -1,7 +1,10 @@
 package com.modcom.medilabsapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,4 +36,26 @@ class MyCart : AppCompatActivity() {
             recycler.adapter = adapter //link adapter to recycler
         }
     }
+
+    //Activate Options menu
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.cart, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.clearcart){
+            val helper = SQLiteCartHelper(applicationContext)
+            helper.clearCart()
+        }
+
+        if (item.itemId == R.id.backtoLabs){
+            startActivity(Intent(applicationContext, MainActivity::class.java))
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+
+
 }
