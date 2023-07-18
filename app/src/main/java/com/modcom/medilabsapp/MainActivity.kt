@@ -9,7 +9,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +19,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.gson.GsonBuilder
 import com.modcom.medilabsapp.adapters.LabAdapter
 import com.modcom.medilabsapp.helpers.ApiHelper
+import com.modcom.medilabsapp.helpers.SQLiteCartHelper
 import com.modcom.medilabsapp.models.Lab
 import org.json.JSONArray
 import org.json.JSONObject
@@ -31,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         progress = findViewById(R.id.progress)
         recyclerView = findViewById(R.id.recycler)
         labAdapter = LabAdapter(applicationContext)
@@ -127,16 +131,25 @@ class MainActivity : AppCompatActivity() {
     //Start
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main, menu)
+        val item: MenuItem = menu!!.findItem(R.id.mycart)
+        item.setActionView(R.layout.design)
+        val actionView: View? = item.actionView
+        val number = actionView?.findViewById<TextView>(R.id.badge)
+        val image = actionView?.findViewById<ImageView>(R.id.image)
+        image?.setOnClickListener {
+            startActivity(Intent(applicationContext, MyCart::class.java))
+        }
+        val helper = SQLiteCartHelper(applicationContext)
+        number?.text = ""+helper.getNumItems()
         return super.onCreateOptionsMenu(menu)
     }
 
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.mycart){
-            startActivity(Intent(applicationContext, MyCart::class.java))
-        }
-        return super.onOptionsItemSelected(item)
-    }
     //End
+
+
+
+
+
+
 
 }

@@ -21,10 +21,18 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:listitem="@layout/single_labtests_cart"
         android:id="@+id/recycler"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "Checkout"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:layout_margin="10dp"
+        android:id="@+id/checkout"/>
 
 
 </LinearLayout>
