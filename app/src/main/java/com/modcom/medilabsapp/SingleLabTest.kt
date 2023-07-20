@@ -1,6 +1,7 @@
 package com.modcom.medilabsapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -59,4 +60,19 @@ class SingleLabTest : AppCompatActivity() {
         }//end onclick
 
     }//end oncreate
+
+    override fun onBackPressed() {
+
+        val i = Intent(applicationContext, MainActivity::class.java)
+        startActivity(i)
+        finishAffinity()
+
+    }
+
+
 }//end class
+
+
+
+
+

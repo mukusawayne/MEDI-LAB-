@@ -36,7 +36,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:launchMode="singleInstance" />
+           />
         <activity
             android:name=".Screen1"
             android:exported="true"

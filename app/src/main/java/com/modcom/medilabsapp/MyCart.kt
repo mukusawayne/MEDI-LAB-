@@ -56,6 +56,11 @@ class MyCart : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onBackPressed() {
+        val i = Intent(applicationContext, MainActivity::class.java)
+        startActivity(i)
+        finishAffinity()
 
+    }
 
-}
+}//last

@@ -49,6 +49,9 @@ class SQLiteCartHelper(context: Context):
          }
         else {
             println("Item Added To Cart")
+//             val i = Intent(context, MyCart::class.java)
+//             i.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+//             context.startActivity(i)
              Toast.makeText(context, "Item Added to cart", Toast.LENGTH_SHORT).show()
          }
     }//end
