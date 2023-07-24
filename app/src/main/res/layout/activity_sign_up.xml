@@ -166,4 +166,11 @@ date in Edittext android kotlin xml
     </LinearLayout>
 
 
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Account"
+        android:id="@+id/create"/>
+
+
 </LinearLayout>

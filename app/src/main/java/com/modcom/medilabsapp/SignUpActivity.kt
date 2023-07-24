@@ -16,8 +16,6 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-
-
         buttonDatePicker = findViewById(R.id.buttonDatePicker)
         editTextDate = findViewById(R.id.editTextDate)
 
@@ -29,15 +27,13 @@ class SignUpActivity : AppCompatActivity() {
         spinner = findViewById(R.id.spinner)
         selectedItemText = findViewById(R.id.selectedItemText)
         // Sample data for the spinner
-        val data = listOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5")
+        val data = listOf("1", "2", "3", "4", "5")
         // Create an ArrayAdapter using the sample data
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         // Set the adapter to the spinner
         spinner.adapter = adapter
-
-
 
 
     }//end oncreate
