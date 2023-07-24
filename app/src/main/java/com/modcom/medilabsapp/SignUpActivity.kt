@@ -4,8 +4,10 @@ import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.modcom.medilabsapp.helpers.ApiHelper
+import org.json.JSONArray
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
@@ -38,37 +40,59 @@ class SignUpActivity : AppCompatActivity() {
         // Set the adapter to the spinner
         spinner.adapter = adapter
 
-        //Push/Post data to APi.
-        val surname = findViewById<TextInputEditText>(R.id.surname)
-        val others = findViewById<TextInputEditText>(R.id.others)
-        val email = findViewById<TextInputEditText>(R.id.email)
-        val phone = findViewById<TextInputEditText>(R.id.phone)
-        val password = findViewById<TextInputEditText>(R.id.password)
-        val confirm = findViewById<TextInputEditText>(R.id.confirm)
-        val female = findViewById<RadioButton>(R.id.radioFemale)
-        val male = findViewById<RadioButton>(R.id.radioMale)
-        var gender = "N/A"
-        if (female.isSelected){ gender = "Female" }
-        if (male.isSelected){ gender = "Male" }
+        val create = findViewById<MaterialButton>(R.id.create)
+        create.setOnClickListener {  //where do we close it?
+            //Push/Post data to APi.
+            val surname = findViewById<TextInputEditText>(R.id.surname)
+            val others = findViewById<TextInputEditText>(R.id.others)
+            val email = findViewById<TextInputEditText>(R.id.email)
+            val phone = findViewById<TextInputEditText>(R.id.phone)
+            val password = findViewById<TextInputEditText>(R.id.password)
+            val confirm = findViewById<TextInputEditText>(R.id.confirm)
+            val female = findViewById<RadioButton>(R.id.radioFemale)
+            val male = findViewById<RadioButton>(R.id.radioMale)
+            var gender = "N/A"
+            if (female.isSelected) {
+                gender = "Female"
+            }
+            if (male.isSelected) {
+                gender = "Male"
+            }
 
-        if (password.text.toString() != confirm.text.toString()){
-            Toast.makeText(applicationContext, "Password Not Matching",
-                Toast.LENGTH_SHORT).show()
-        }
-        else {
-            val api = "https://modcom.pythonanywhere.com/api/member_signup"
-            val helper = ApiHelper(applicationContext)
-            val body = JSONObject()
-            body.put("surname", surname.text.toString())
-            body.put("others", others.text.toString())
-            body.put("email", email.text.toString())
-            body.put("phone", phone.text.toString())
-            body.put("password", password.text.toString())
-            body.put("gender", gender)
-            body.put("location_id", spinner.selectedItem.toString())
+            if (password.text.toString() != confirm.text.toString()) {
+                Toast.makeText(
+                    applicationContext, "Password Not Matching",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                val api = "https://modcom.pythonanywhere.com/api/member_signup"
+                val helper = ApiHelper(applicationContext)
+                val body = JSONObject()
+                body.put("surname", surname.text.toString())
+                body.put("others", others.text.toString())
+                body.put("email", email.text.toString())
+                body.put("phone", phone.text.toString())
+                body.put("dob", editTextDate.text.toString())
+                body.put("password", password.text.toString())
+                body.put("gender", gender)
+                body.put("location_id", spinner.selectedItem.toString())
 
+                helper.post(api, body, object : ApiHelper.CallBack {
+                    override fun onSuccess(result: JSONArray?) {
+                    }
 
-        }//end
+                    override fun onSuccess(result: JSONObject?) {
+                        Toast.makeText(applicationContext, result.toString(),
+                            Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onFailure(result: String?) {
+                    }
+
+                });
+
+            }//end
+        }//here inside oncreate, closes on click
     }//end oncreate
 
     //other functions
