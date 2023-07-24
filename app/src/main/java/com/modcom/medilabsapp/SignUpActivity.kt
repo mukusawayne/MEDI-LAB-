@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import com.google.android.material.textfield.TextInputEditText
+import com.modcom.medilabsapp.helpers.ApiHelper
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -55,6 +57,16 @@ class SignUpActivity : AppCompatActivity() {
         }
         else {
             val api = "https://modcom.pythonanywhere.com/api/member_signup"
+            val helper = ApiHelper(applicationContext)
+            val body = JSONObject()
+            body.put("surname", surname.text.toString())
+            body.put("others", others.text.toString())
+            body.put("email", email.text.toString())
+            body.put("phone", phone.text.toString())
+            body.put("password", password.text.toString())
+            body.put("gender", gender)
+            body.put("location_id", spinner.selectedItem.toString())
+
 
         }//end
     }//end oncreate
