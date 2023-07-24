@@ -127,5 +127,28 @@
 ChatGPT - click button and popup a calender put the
 date in Edittext android kotlin xml
 -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DOB"
+        android:id="@+id/buttonDatePicker"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date here"
+        android:enabled="false"
+        android:id="@+id/editTextDate"/>
+
+</LinearLayout>
+
+
+
+
 
 </LinearLayout>
