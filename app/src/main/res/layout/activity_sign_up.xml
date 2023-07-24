@@ -131,7 +131,6 @@ date in Edittext android kotlin xml
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
-
     <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -144,7 +143,6 @@ date in Edittext android kotlin xml
         android:hint="Date here"
         android:enabled="false"
         android:id="@+id/editTextDate"/>
-
 </LinearLayout>
 
 
