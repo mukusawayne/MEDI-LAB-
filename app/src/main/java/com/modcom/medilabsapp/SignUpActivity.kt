@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
+import com.google.android.material.textfield.TextInputEditText
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,7 +36,27 @@ class SignUpActivity : AppCompatActivity() {
         // Set the adapter to the spinner
         spinner.adapter = adapter
 
+        //Push/Post data to APi.
+        val surname = findViewById<TextInputEditText>(R.id.surname)
+        val others = findViewById<TextInputEditText>(R.id.others)
+        val email = findViewById<TextInputEditText>(R.id.email)
+        val phone = findViewById<TextInputEditText>(R.id.phone)
+        val password = findViewById<TextInputEditText>(R.id.password)
+        val confirm = findViewById<TextInputEditText>(R.id.confirm)
+        val female = findViewById<RadioButton>(R.id.radioFemale)
+        val male = findViewById<RadioButton>(R.id.radioMale)
+        var gender = "N/A"
+        if (female.isSelected){ gender = "Female" }
+        if (male.isSelected){ gender = "Male" }
 
+        if (password.text.toString() != confirm.text.toString()){
+            Toast.makeText(applicationContext, "Password Not Matching",
+                Toast.LENGTH_SHORT).show()
+        }
+        else {
+            val api = "https://modcom.pythonanywhere.com/api/member_signup"
+
+        }//end
     }//end oncreate
 
     //other functions
