@@ -7,6 +7,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.modcom.medilabsapp.constants.Constants
 import com.modcom.medilabsapp.helpers.ApiHelper
+import com.modcom.medilabsapp.helpers.PrefsHelper
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -30,13 +31,24 @@ class SignInActivity : AppCompatActivity() {
                 //user: bob101
                 //pass: Qwerty1234
                 override fun onSuccess(result: JSONObject?) {
-                    Toast.makeText(applicationContext, result.toString(),
-                        Toast.LENGTH_SHORT).show()
                     //Consume the JSON - access keys
                     if (result!!.has("refresh_token")){
                         val refresh_token = result.getString("refresh_token")
-                        Toast.makeText(applicationContext, refresh_token,
+                        val access_token = result.getString("access_token")
+                        val message = result.getString("message")// {} Object user details
+
+                        Toast.makeText(applicationContext, "Success",
                             Toast.LENGTH_SHORT).show()
+
+                        PrefsHelper.savePrefs(applicationContext,
+                            "refresh_token", refresh_token)
+                        PrefsHelper.savePrefs(applicationContext,
+                            "access_token", access_token)
+
+                        PrefsHelper.savePrefs(applicationContext,
+                            "userObject", message)
+                        //Proceed to HomePage. We need to Create It.
+
                     }
                     else {
                         Toast.makeText(applicationContext, result.toString(),

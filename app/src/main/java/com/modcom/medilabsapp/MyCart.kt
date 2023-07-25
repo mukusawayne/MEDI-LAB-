@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import com.modcom.medilabsapp.adapters.LabTestsCartAdapter
+import com.modcom.medilabsapp.helpers.PrefsHelper
 import com.modcom.medilabsapp.helpers.SQLiteCartHelper
 
 class MyCart : AppCompatActivity() {
@@ -17,8 +20,27 @@ class MyCart : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_cart)
         //put total cost in a textview
-        val total = findViewById<MaterialTextView>(R.id.total)
         val helper = SQLiteCartHelper(applicationContext)
+        val checkout = findViewById<MaterialButton>(R.id.checkout)
+        if (helper.totalCost() == 0.0){
+            checkout.visibility = View.GONE
+        }//end
+        checkout.setOnClickListener {
+             val token = PrefsHelper.getPrefs(applicationContext, "refresh_token")
+             if (token.isEmpty()){
+                 Toast.makeText(applicationContext, "Not Logged In",
+                     Toast.LENGTH_SHORT).show()
+                 startActivity(Intent(applicationContext, SignInActivity::class.java))
+                 finish()
+             }
+            else {
+                 Toast.makeText(applicationContext, "Logged In", Toast.LENGTH_SHORT).show()
+             }
+        }//end
+
+
+        val total = findViewById<MaterialTextView>(R.id.total)
+
         total.text = "Total: "+helper.totalCost()
 
         //Find recycler
