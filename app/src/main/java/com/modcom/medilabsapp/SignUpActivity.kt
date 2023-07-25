@@ -7,6 +7,7 @@ import android.widget.*
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.modcom.medilabsapp.helpers.ApiHelper
+import com.modcom.medilabsapp.helpers.PrefsHelper
 import org.json.JSONArray
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -20,6 +21,8 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
+
 
         buttonDatePicker = findViewById(R.id.buttonDatePicker)
         editTextDate = findViewById(R.id.editTextDate)
