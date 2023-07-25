@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.gson.GsonBuilder
 import com.modcom.medilabsapp.adapters.LabAdapter
+import com.modcom.medilabsapp.constants.Constants
 import com.modcom.medilabsapp.helpers.ApiHelper
 import com.modcom.medilabsapp.helpers.SQLiteCartHelper
 import com.modcom.medilabsapp.models.Lab
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity() {
 
     fun fetchData(){
         //Go to the PAi get the dataapplicationContextthis
-        val api = "https://modcom.pythonanywhere.com/api/laboratories"
+        val api = Constants.BASE_URL+"/laboratories"
         val helper = ApiHelper(this@MainActivity)
         helper.get(api, object: ApiHelper.CallBack{
             override fun onSuccess(result: JSONArray?) {

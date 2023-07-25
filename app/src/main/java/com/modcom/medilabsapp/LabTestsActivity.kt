@@ -14,6 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.gson.GsonBuilder
 import com.modcom.medilabsapp.adapters.LabAdapter
 import com.modcom.medilabsapp.adapters.LabTestsAdapter
+import com.modcom.medilabsapp.constants.Constants
 import com.modcom.medilabsapp.helpers.ApiHelper
 import com.modcom.medilabsapp.models.Lab
 import com.modcom.medilabsapp.models.LabTests
@@ -66,7 +67,7 @@ class LabTestsActivity : AppCompatActivity() {
     }//end oncreate
 
     fun post_fetch(){
-        val api = "https://modcom.pythonanywhere.com/api/lab_tests"
+        val api = Constants.BASE_URL+"/lab_tests"
         //Above APi needs a Body, So we have to build it
         val body = JSONObject()
         //Retrieve the id from Intent Extras

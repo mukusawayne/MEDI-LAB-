@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.*
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import com.modcom.medilabsapp.constants.Constants
 import com.modcom.medilabsapp.helpers.ApiHelper
 import com.modcom.medilabsapp.helpers.PrefsHelper
 import org.json.JSONArray
@@ -22,8 +23,6 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-
-
         buttonDatePicker = findViewById(R.id.buttonDatePicker)
         editTextDate = findViewById(R.id.editTextDate)
 
@@ -35,7 +34,7 @@ class SignUpActivity : AppCompatActivity() {
         spinner = findViewById(R.id.spinner)
         selectedItemText = findViewById(R.id.selectedItemText)
         // Sample data for the spinner
-        val data = listOf("1", "2", "3", "4", "5")
+        val data = listOf("1", "2", "3", "4", "5")// pending
         // Create an ArrayAdapter using the sample data
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
         // Specify the layout to use when the list of choices appears
@@ -68,7 +67,7 @@ class SignUpActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                val api = "https://modcom.pythonanywhere.com/api/member_signup"
+                val api = Constants.BASE_URL+"/member_signup"
                 val helper = ApiHelper(applicationContext)
                 val body = JSONObject()
                 body.put("surname", surname.text.toString())

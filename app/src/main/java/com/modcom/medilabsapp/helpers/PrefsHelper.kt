@@ -38,7 +38,5 @@ class PrefsHelper {
             editor.apply()
         }
 
-
-
     }//end companion
 }//end class
