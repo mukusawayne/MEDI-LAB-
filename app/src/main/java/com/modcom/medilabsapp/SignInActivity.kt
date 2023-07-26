@@ -73,7 +73,8 @@ class SignInActivity : AppCompatActivity() {
                         PrefsHelper.savePrefs(applicationContext,
                             "surname", surname)
 
-
+                        startActivity(Intent(applicationContext, MainActivity::class.java))
+                        finishAffinity()
                         //Proceed to HomePage. We need to Create It.
 
                     }
