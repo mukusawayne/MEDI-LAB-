@@ -16,10 +16,13 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textview.MaterialTextView
 import com.google.gson.GsonBuilder
 import com.modcom.medilabsapp.adapters.LabAdapter
 import com.modcom.medilabsapp.constants.Constants
 import com.modcom.medilabsapp.helpers.ApiHelper
+import com.modcom.medilabsapp.helpers.PrefsHelper
 import com.modcom.medilabsapp.helpers.SQLiteCartHelper
 import com.modcom.medilabsapp.models.Lab
 import org.json.JSONArray
@@ -32,12 +35,38 @@ class MainActivity : AppCompatActivity() {
      lateinit var recyclerView: RecyclerView
      lateinit var progress: ProgressBar
      lateinit var swiperefresh: SwipeRefreshLayout
+
+     fun update(){
+         val user = findViewById<MaterialTextView>(R.id.user)
+         val signin = findViewById<MaterialButton>(R.id.signin)
+         val signout = findViewById<MaterialButton>(R.id.signout)
+         signin.visibility = View.GONE
+         signout.visibility = View.GONE
+         val token = PrefsHelper.getPrefs(applicationContext, "refresh_token")
+         if (token.isEmpty()){ //Token available
+             user.text = "Not Logged In"
+             signin.visibility = View.VISIBLE
+             signin.setOnClickListener {
+                 startActivity(Intent(applicationContext, SignInActivity::class.java))
+             }
+         }
+         else{  //token not available
+             val surname = PrefsHelper.getPrefs(applicationContext, "surname")
+             user.text = "Welcome $surname"
+             signout.visibility = View.VISIBLE
+             signout.setOnClickListener{
+                 PrefsHelper.clearPrefs(applicationContext)
+                 startActivity(intent)
+                 finishAffinity()
+             }
+         }
+     }//end
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
+        update()
 
         progress = findViewById(R.id.progress)
         recyclerView = findViewById(R.id.recycler)
