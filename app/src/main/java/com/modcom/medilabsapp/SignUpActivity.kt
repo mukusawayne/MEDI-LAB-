@@ -100,7 +100,6 @@ class SignUpActivity : AppCompatActivity() {
 
                     override fun onFailure(result: String?) {
                     }
-
                 });
 
             }//end

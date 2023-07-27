@@ -7,15 +7,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.EditText
-import android.widget.RadioButton
+import android.widget.*
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.modcom.medilabsapp.MainActivity
 import com.modcom.medilabsapp.R
+import com.modcom.medilabsapp.constants.Constants
+import com.modcom.medilabsapp.helpers.ApiHelper
 import com.modcom.medilabsapp.helpers.PrefsHelper
+import org.json.JSONArray
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -52,9 +53,28 @@ class DependantFragment : Fragment() {
             if (male.isSelected) {
                 gender = "Male"
             }
+            val member_id = PrefsHelper.getPrefs(requireContext(), "member_id")
 
+            val api = Constants.BASE_URL+"/add_dependant"
+            val helper = ApiHelper(requireContext())
+            val body = JSONObject()
+            body.put("surname", surname.text.toString())
+            body.put("others", others.text.toString())
+            body.put("dob", editTextDate.text.toString())
+            body.put("gender", gender)
+            body.put("member_id", member_id)
+            helper.post(api, body, object : ApiHelper.CallBack {
+                override fun onSuccess(result: JSONArray?) {
+                }
 
+                override fun onSuccess(result: JSONObject?) {
+                    Toast.makeText(requireContext(), result.toString(),
+                        Toast.LENGTH_SHORT).show()
+                }
 
+                override fun onFailure(result: String?) {
+                }
+            });
 
         }//end listener
 
