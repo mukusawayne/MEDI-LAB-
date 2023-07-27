@@ -15,7 +15,7 @@ class Screen1 : AppCompatActivity() {
         //Find Views by ID
         val skip1 = findViewById<MaterialTextView>(R.id.skip1)
         skip1.setOnClickListener {
-            startActivity(Intent(applicationContext, MainActivity::class.java))
+            startActivity(Intent(applicationContext, MemberProfile::class.java))
         }// End
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)
