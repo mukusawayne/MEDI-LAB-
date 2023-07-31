@@ -12,6 +12,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.modcom.medilabsapp.MainActivity
 import com.modcom.medilabsapp.R
+import com.modcom.medilabsapp.ViewDependants
 import com.modcom.medilabsapp.constants.Constants
 import com.modcom.medilabsapp.helpers.ApiHelper
 import com.modcom.medilabsapp.helpers.PrefsHelper
@@ -37,6 +38,11 @@ class DependantFragment : Fragment() {
         buttonDatePicker.setOnClickListener {
             showDatePickerDialog()
         }//end onclick
+
+        val mydependants  = root.findViewById<MaterialButton>(R.id.mydependants)
+        mydependants.setOnClickListener {
+            startActivity(Intent(requireContext(), ViewDependants::class.java))
+        }
 
         //post to API
         val adddependant = root.findViewById<MaterialButton>(R.id.adddependant)
