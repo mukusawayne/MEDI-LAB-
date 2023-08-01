@@ -89,6 +89,7 @@ class SignUpActivity : AppCompatActivity() {
                 body.put("gender", gender)
                 body.put("location_id", spinner.selectedItem.toString())
 
+
                 helper.post(api, body, object : ApiHelper.CallBack {
                     override fun onSuccess(result: JSONArray?) {
                     }
