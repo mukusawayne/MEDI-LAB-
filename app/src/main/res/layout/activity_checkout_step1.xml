@@ -25,6 +25,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="Who is this test For?"/>
 
         <RadioGroup
@@ -50,6 +51,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="Where is Test Done?"/>
 
         <RadioGroup
@@ -80,6 +82,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
@@ -99,6 +102,7 @@
        <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
+           android:layout_marginTop="20dp"
            android:orientation="horizontal">
 
            <Button
@@ -117,13 +121,18 @@
 
 
 
-
-
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create Account"
-            android:id="@+id/create"/>
+            android:text="proceed to Step 2"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#D5D2D2"
+            android:textColor="#000000"
+            android:elevation="10dp"
+            android:drawableEnd="@android:drawable/ic_media_next"
+            android:padding="10dp"
+            android:id="@+id/proceedstep2"/>
 
     </LinearLayout>
     <!--github.com/modcomlearning/MediLabApp-->

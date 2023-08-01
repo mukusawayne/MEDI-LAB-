@@ -35,6 +35,7 @@ class MyCart : AppCompatActivity() {
              }
             else {
                  //TODO
+                 startActivity(Intent(applicationContext, CheckoutStep1::class.java))
                  Toast.makeText(applicationContext, "Logged In", Toast.LENGTH_SHORT).show()
              }
         }//end
