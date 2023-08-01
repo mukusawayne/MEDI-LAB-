@@ -19,7 +19,7 @@ class CheckoutStep1 : AppCompatActivity() {
     fun showTimePicker(){
         val calender = Calendar.getInstance()
         val timePickerDialog = TimePickerDialog(
-            applicationContext,
+            this,
             timeSetListener,
             calender.get(Calendar.HOUR_OF_DAY),
             calender.get(Calendar.MINUTE),
@@ -33,7 +33,7 @@ class CheckoutStep1 : AppCompatActivity() {
         val calendar = Calendar.getInstance()  //***********
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
         calendar.set(Calendar.MINUTE, minute)
-        val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val sdf = SimpleDateFormat("hh:mm", Locale.getDefault())
         val selectedTime = sdf.format(calendar.time)
         editTextTime.setText(selectedTime)
     }//end
