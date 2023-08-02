@@ -2,6 +2,7 @@ package com.modcom.medilabsapp
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
@@ -85,10 +86,12 @@ class CheckoutStep1 : AppCompatActivity() {
                 || booked_for.isEmpty()){
                 Toast.makeText(applicationContext, "Empty Fields",
                     Toast.LENGTH_SHORT).show()
+                startActivity(Intent(applicationContext, CheckoutStep2GPS::class.java))
             }
             else {
                 //Intent to GPS - TODO
-                //0
+                startActivity(Intent(applicationContext, CheckoutStep2GPS::class.java))
+
             }//end else
         }//end listener
     }//End onCreate

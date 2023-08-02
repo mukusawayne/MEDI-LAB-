@@ -1,5 +1,6 @@
 package com.modcom.medilabsapp
 
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,6 +32,8 @@ class CheckoutStep2GPS : AppCompatActivity() {
         progress.visibility = View.GONE
         getlocation.setOnClickListener {
              //TODO
+            progress.visibility = View.VISIBLE
+            requestLocation()
         }//end
     }//end onCreate
 
@@ -51,6 +54,9 @@ class CheckoutStep2GPS : AppCompatActivity() {
                   getLocation() //get Lat and Lon
               }
     }//end function
+
+
+    @SuppressLint("MissingPermission")
     fun getLocation(){
         fusedLocationClient.lastLocation
             .addOnSuccessListener {
@@ -63,10 +69,12 @@ class CheckoutStep2GPS : AppCompatActivity() {
                 } ?: run {
                     Toast.makeText(applicationContext, "Location Not Found",
                         Toast.LENGTH_SHORT).show()
+                    progress.visibility = View.GONE
                 } //end run
             }//end success
             .addOnFailureListener { e ->
                 Toast.makeText(applicationContext, "Error $e", Toast.LENGTH_SHORT).show()
+                progress.visibility = View.GONE
             }//end Failure
     }//end function
 
