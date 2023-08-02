@@ -4,9 +4,8 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.EditText
+import android.widget.*
+import com.google.android.material.button.MaterialButton
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -56,6 +55,42 @@ class CheckoutStep1 : AppCompatActivity() {
             showDatePickerDialog()
         }//end onclick
 
+        //Find proceed button
+        val proceed = findViewById<MaterialButton>(R.id.proceedstep2)
+        proceed.setOnClickListener {
+            val date = editTextDate.text.toString()
+            val time = editTextTime.text.toString()
+            //Radio Button Place
+            val home = findViewById<RadioButton>(R.id.radioHome)
+            val away = findViewById<RadioButton>(R.id.radioAway)
+            var where_taken = ""
+            if (home.isSelected){
+                where_taken = "Home"
+            }//end dif
+            if (away.isSelected){
+                where_taken = "Away"
+            }//end if
+            //Radio Button Self/Other
+            val self = findViewById<RadioButton>(R.id.radioSelf)
+            val other = findViewById<RadioButton>(R.id.radioOther)
+            var booked_for = ""
+            if (self.isSelected){
+                booked_for = "Self"
+            }//end
+            if (other.isSelected){
+                booked_for = "Other"
+            }//end
+
+            if (date.isEmpty() || time.isEmpty() || where_taken.isEmpty()
+                || booked_for.isEmpty()){
+                Toast.makeText(applicationContext, "Empty Fields",
+                    Toast.LENGTH_SHORT).show()
+            }
+            else {
+                //Intent to GPS - TODO
+                //0
+            }//end else
+        }//end listener
     }//End onCreate
 
     private fun showDatePickerDialog() {
