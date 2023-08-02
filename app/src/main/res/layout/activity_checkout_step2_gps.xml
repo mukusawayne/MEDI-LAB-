@@ -15,8 +15,9 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your Location"
+            android:text="Step 2"
             android:textStyle="bold"
+            android:layout_marginTop="25dp"
             android:textSize="30sp"
             android:fontFamily="@font/montserrat"
             android:textColor="@color/black"
@@ -52,6 +53,10 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+       <ProgressBar
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/progress"/>
 
 
         <com.google.android.material.button.MaterialButton
