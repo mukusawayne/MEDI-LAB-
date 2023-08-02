@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -47,8 +48,26 @@ class CheckoutStep2GPS : AppCompatActivity() {
                      123)
               }//end if
               else {
-                  //Proceed to get Location
+                  getLocation() //get Lat and Lon
               }
-    }//end fun
+    }//end function
+    fun getLocation(){
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener {
+                location ->
+                location?.let {
+                    editLatitude.setText(it.latitude.toString())
+                    editLongitude.setText(it.longitude.toString())
+                    progress.visibility = View.GONE
+
+                } ?: run {
+                    Toast.makeText(applicationContext, "Location Not Found",
+                        Toast.LENGTH_SHORT).show()
+                } //end run
+            }//end success
+            .addOnFailureListener { e ->
+                Toast.makeText(applicationContext, "Error $e", Toast.LENGTH_SHORT).show()
+            }//end Failure
+    }//end function
 
 }//end class
