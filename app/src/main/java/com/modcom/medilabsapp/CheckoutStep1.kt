@@ -98,7 +98,14 @@ class CheckoutStep1 : AppCompatActivity() {
                 PrefsHelper.savePrefs(applicationContext, "time", time)
                 PrefsHelper.savePrefs(applicationContext, "where_taken", where_taken)
                 PrefsHelper.savePrefs(applicationContext, "booked_for", booked_for)
-                startActivity(Intent(applicationContext, CheckoutStep2GPS::class.java))
+                if (isLocationEnabled()) {
+                    startActivity(Intent(applicationContext, CheckoutStep2GPS::class.java))
+                }
+                else {
+                    Toast.makeText(applicationContext, "GPS Is OFF",
+                        Toast.LENGTH_SHORT).show()
+                }
+
             }//end else
         }//end listener
     }//End onCreate
