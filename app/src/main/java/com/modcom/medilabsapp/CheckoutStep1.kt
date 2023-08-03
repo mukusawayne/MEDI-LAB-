@@ -2,7 +2,9 @@ package com.modcom.medilabsapp
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.content.Intent
+import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -100,6 +102,14 @@ class CheckoutStep1 : AppCompatActivity() {
             }//end else
         }//end listener
     }//End onCreate
+   //justpaste.it/arfi6
+   private fun isLocationEnabled(): Boolean {
+       var locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+       return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+           LocationManager.NETWORK_PROVIDER
+       )
+   }//end
+
 
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()

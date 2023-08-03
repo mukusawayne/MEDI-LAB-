@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
@@ -69,20 +70,24 @@ class CheckoutStep2GPS : AppCompatActivity() {
                     editLatitude.setText(it.latitude.toString())
                     editLongitude.setText(it.longitude.toString())
                     progress.visibility = View.GONE
+                    requestNewLocation()
 
                 } ?: run {
-                    Toast.makeText(applicationContext, "Location Not Found",
+                    Toast.makeText(applicationContext, "Searching Location",
                         Toast.LENGTH_SHORT).show()
                     progress.visibility = View.GONE
+                    requestNewLocation()
                 } //end run
             }//end success
             .addOnFailureListener { e ->
                 Toast.makeText(applicationContext, "Error $e", Toast.LENGTH_SHORT).show()
                 progress.visibility = View.GONE
+                requestNewLocation()
             }//end Failure
     }//end function
 
     lateinit var mLocationCallback: LocationCallback
+    @SuppressLint("MissingPermission")
     fun requestNewLocation(){
         progress.visibility = View.VISIBLE
         Log.d("hhhhhh", "Requesting New Location")
@@ -105,6 +110,10 @@ class CheckoutStep2GPS : AppCompatActivity() {
                  }//end for
             }//end result
         }//end call back
+
+        fusedLocationClient.requestLocationUpdates(mLocationRequest,
+        mLocationCallback, Looper.getMainLooper())
+
     }//end function
 
 }//end class
