@@ -4,11 +4,14 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.location.Geocoder
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.widget.*
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.button.MaterialButton
 import com.modcom.medilabsapp.helpers.PrefsHelper
 import java.text.SimpleDateFormat
@@ -104,6 +107,7 @@ class CheckoutStep1 : AppCompatActivity() {
                 else {
                     Toast.makeText(applicationContext, "GPS Is OFF",
                         Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
                 }
 
             }//end else
@@ -116,6 +120,13 @@ class CheckoutStep1 : AppCompatActivity() {
            LocationManager.NETWORK_PROVIDER
        )
    }//end
+
+  fun getAddress(latlng: LatLng) : String{
+        val geoCoder = Geocoder(this)
+       val list = geoCoder.getFromLocation(latlng.latitude, latlng.longitude,
+       1)
+       return list!![0].getAddressLine(0)
+  }//end
 
 
     private fun showDatePickerDialog() {
