@@ -4,11 +4,15 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -76,6 +80,31 @@ class CheckoutStep2GPS : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Error $e", Toast.LENGTH_SHORT).show()
                 progress.visibility = View.GONE
             }//end Failure
+    }//end function
+
+    lateinit var mLocationCallback: LocationCallback
+    fun requestNewLocation(){
+        progress.visibility = View.VISIBLE
+        Log.d("hhhhhh", "Requesting New Location")
+        val mLocationRequest = LocationRequest.create()
+        mLocationRequest.interval = 10000
+        mLocationRequest.fastestInterval = 10000
+        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        mLocationCallback = object : LocationCallback(){
+            override fun onLocationResult(result: LocationResult) {
+                 for(location in result.locations){
+                     if (location!=null){
+                         editLatitude.setText(location.latitude.toString())
+                         editLongitude.setText(location.longitude.toString())
+                         progress.visibility = View.GONE
+                     }//end if
+                     else {
+                         Toast.makeText(applicationContext, "Check GPS",
+                             Toast.LENGTH_SHORT).show()
+                     }//end else
+                 }//end for
+            }//end result
+        }//end call back
     }//end function
 
 }//end class

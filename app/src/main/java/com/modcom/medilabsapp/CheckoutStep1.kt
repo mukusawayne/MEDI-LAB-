@@ -5,8 +5,10 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import com.google.android.material.button.MaterialButton
+import com.modcom.medilabsapp.helpers.PrefsHelper
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -65,33 +67,36 @@ class CheckoutStep1 : AppCompatActivity() {
             val home = findViewById<RadioButton>(R.id.radioHome)
             val away = findViewById<RadioButton>(R.id.radioAway)
             var where_taken = ""
-            if (home.isSelected){
+            if (home.isChecked){
                 where_taken = "Home"
             }//end dif
-            if (away.isSelected){
+            if (away.isChecked){
                 where_taken = "Away"
             }//end if
             //Radio Button Self/Other
             val self = findViewById<RadioButton>(R.id.radioSelf)
             val other = findViewById<RadioButton>(R.id.radioOther)
             var booked_for = ""
-            if (self.isSelected){
+            if (self.isChecked){
                 booked_for = "Self"
             }//end
-            if (other.isSelected){
+            if (other.isChecked){
                 booked_for = "Other"
             }//end
 
             if (date.isEmpty() || time.isEmpty() || where_taken.isEmpty()
                 || booked_for.isEmpty()){
+
                 Toast.makeText(applicationContext, "Empty Fields",
                     Toast.LENGTH_SHORT).show()
-                startActivity(Intent(applicationContext, CheckoutStep2GPS::class.java))
             }
             else {
                 //Intent to GPS - TODO
+                PrefsHelper.savePrefs(applicationContext, "date", date)
+                PrefsHelper.savePrefs(applicationContext, "time", time)
+                PrefsHelper.savePrefs(applicationContext, "where_taken", where_taken)
+                PrefsHelper.savePrefs(applicationContext, "booked_for", booked_for)
                 startActivity(Intent(applicationContext, CheckoutStep2GPS::class.java))
-
             }//end else
         }//end listener
     }//End onCreate

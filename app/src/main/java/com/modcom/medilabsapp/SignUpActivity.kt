@@ -64,10 +64,10 @@ class SignUpActivity : AppCompatActivity() {
             val female = findViewById<RadioButton>(R.id.radioFemale)
             val male = findViewById<RadioButton>(R.id.radioMale)
             var gender = "N/A"
-            if (female.isSelected) {
+            if (female.isChecked) {
                 gender = "Female"
             }
-            if (male.isSelected) {
+            if (male.isChecked) {
                 gender = "Male"
             }
 
