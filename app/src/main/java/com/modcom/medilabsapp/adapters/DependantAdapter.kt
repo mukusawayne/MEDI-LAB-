@@ -18,9 +18,9 @@ import com.modcom.medilabsapp.models.Dependant
 import com.modcom.medilabsapp.models.Lab
 import com.modcom.medilabsapp.models.LabTests
 
+
 class DependantAdapter(var context: Context):
     RecyclerView.Adapter<DependantAdapter.ViewHolder>() {
-
 
     //Create a List and connect it with our model
     var itemList : List<Dependant> = listOf() //Its empty
@@ -47,22 +47,11 @@ class DependantAdapter(var context: Context):
          dep_others.text = item.others
          dep_dob.text = item.dob
          holder.itemView.setOnClickListener {
-             ////Is confirmation dialog Needed?
-             val builder = AlertDialog.Builder(context)
-             builder.setTitle("Confirm")
-             builder.setMessage("Are you sure to Pick ${item.surname}")
-             builder.setPositiveButton("Yes") { dialog, which ->
+             ////Is confirmation dialog Needed? Research
                  PrefsHelper.savePrefs(context, "dependant_id", item.dependant_id)
                  val i = Intent(context, CheckoutStep2GPS::class.java)
                  i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                  context.startActivity(i)
-                 dialog.dismiss()
-             }//end Yes
-             builder.setNegativeButton("No") {dialog, which ->
-                dialog.dismiss()
-             }//end No
-             val alertDialog = builder.create()
-             alertDialog.show()
          }//end Listner
     }//end bind
 
