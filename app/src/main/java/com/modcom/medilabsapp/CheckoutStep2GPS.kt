@@ -1,12 +1,16 @@
 package com.modcom.medilabsapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Geocoder
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -15,9 +19,11 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
+import com.modcom.medilabsapp.helpers.PrefsHelper
 
 class CheckoutStep2GPS : AppCompatActivity() {
     private  lateinit var editLatitude: TextInputEditText
@@ -26,6 +32,16 @@ class CheckoutStep2GPS : AppCompatActivity() {
     private lateinit var progress: ProgressBar
     private lateinit var skip: MaterialTextView
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+
+    //Convert cordinates to Address
+    fun getAddress(latlng: LatLng) : String{
+        val geoCoder = Geocoder(this)
+        val list = geoCoder.getFromLocation(latlng.latitude, latlng.longitude,
+            1)
+        return list!![0].getAddressLine(0)
+    }//end
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkout_step2_gps)
@@ -40,6 +56,17 @@ class CheckoutStep2GPS : AppCompatActivity() {
             progress.visibility = View.VISIBLE
             requestLocation()
         }//end
+
+        val complete = findViewById<Button>(R.id.complete)
+        complete.setOnClickListener {
+            PrefsHelper.savePrefs(applicationContext, "latitude",
+                editLatitude.text.toString())
+            PrefsHelper.savePrefs(applicationContext, "longitude",
+                editLongitude.text.toString())
+            val intent = Intent(applicationContext, CompleteActivity::class.java)
+            startActivity(intent)
+        }
+
     }//end onCreate
 
     //Function to check if user accepted permission or not
@@ -70,7 +97,20 @@ class CheckoutStep2GPS : AppCompatActivity() {
                     editLatitude.setText(it.latitude.toString())
                     editLongitude.setText(it.longitude.toString())
                     progress.visibility = View.GONE
+
+                    val place = getAddress(LatLng(it.latitude, it.longitude));
+                    Toast.makeText(applicationContext, "here $place",
+                        Toast.LENGTH_SHORT).show()
+                    //Put the place ia TextView
+                    val skip = findViewById<MaterialTextView>(R.id.skip)
+                    skip.text = "Current Location \n $place"
                     requestNewLocation()
+                    //Put button when  I click on that button.
+                    //It intents to Maps and shows that Location.
+                    //...................
+                    //Interfaces.
+                    //JS - Advanced
+
 
                 } ?: run {
                     Toast.makeText(applicationContext, "Searching Location",
@@ -102,6 +142,10 @@ class CheckoutStep2GPS : AppCompatActivity() {
                          editLatitude.setText(location.latitude.toString())
                          editLongitude.setText(location.longitude.toString())
                          progress.visibility = View.GONE
+
+                         PrefsHelper.savePrefs(applicationContext, "latitude", editLatitude.text.toString())
+                         PrefsHelper.savePrefs(applicationContext, "longitude", editLongitude.text.toString())
+
                      }//end if
                      else {
                          Toast.makeText(applicationContext, "Check GPS",
@@ -115,5 +159,7 @@ class CheckoutStep2GPS : AppCompatActivity() {
         mLocationCallback, Looper.getMainLooper())
 
     }//end function
+
+
 
 }//end class

@@ -121,12 +121,7 @@ class CheckoutStep1 : AppCompatActivity() {
        )
    }//end
 
-  fun getAddress(latlng: LatLng) : String{
-        val geoCoder = Geocoder(this)
-       val list = geoCoder.getFromLocation(latlng.latitude, latlng.longitude,
-       1)
-       return list!![0].getAddressLine(0)
-  }//end
+
 
 
     private fun showDatePickerDialog() {
