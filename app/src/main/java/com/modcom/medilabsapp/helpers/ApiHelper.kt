@@ -4,7 +4,6 @@ import android.content.Context
 import android.widget.Toast
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.JsonHttpResponseHandler
-import com.modcom.medilabsapp.Modcom
 import cz.msebera.android.httpclient.Header
 import cz.msebera.android.httpclient.entity.StringEntity
 import org.json.JSONArray
