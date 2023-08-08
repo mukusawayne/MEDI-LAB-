@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.modcom.medilabsapp.constants.Constants
 import com.modcom.medilabsapp.helpers.ApiHelper
 import com.modcom.medilabsapp.helpers.PrefsHelper
+import com.modcom.medilabsapp.helpers.SQLiteCartHelper
 import org.json.JSONArray
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -18,9 +19,14 @@ class CompleteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_complete)
         // Get the required payload to make booking from the Shared preferences
         // Payload
-
-            val test_id = 3
-            val lab_id = 35
+            //Lets get to SQLIte, fetch the Tests Picked by user
+            val sqllitehelper = SQLiteCartHelper(applicationContext)
+            val items = sqllitehelper.getAllItems()
+            val invoice_no = generateInvoiceNumber() //Autogenerate
+            items.forEach(){
+                // Capture test ID/Lab ID at a given Loop
+            val test_id = it.test_id
+            val lab_id = it.lab_id
 
             val member_id = PrefsHelper.getPrefs(this, "member_id")
             val date = PrefsHelper.getPrefs(this, "date")
@@ -30,7 +36,7 @@ class CompleteActivity : AppCompatActivity() {
             val latitude = PrefsHelper.getPrefs(this, "latitude")
             val longitude = PrefsHelper.getPrefs(this, "longitude")
             val dependant_id = PrefsHelper.getPrefs(this, "dependant_id")
-            val invoice_no = generateInvoiceNumber() //Autogenerate
+//            val invoice_no = generateInvoiceNumber() //Autogenerate
 
             val helper = ApiHelper(this)
             val api = Constants.BASE_URL + "/make_booking"
@@ -60,10 +66,9 @@ class CompleteActivity : AppCompatActivity() {
                 override fun onSuccess(result: JSONArray?) {
 
                 }
-            })
-
-
-    }//generate invoice
+             })//end post
+            }//end for each
+    }//end oncreate
 
     fun generateInvoiceNumber(): String {
         val dateFormat = SimpleDateFormat("yyyyMMddHHmmss")
