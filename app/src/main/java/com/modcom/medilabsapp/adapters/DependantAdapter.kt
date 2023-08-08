@@ -1,5 +1,6 @@
 package com.modcom.medilabsapp.adapters
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,9 +9,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
+import com.modcom.medilabsapp.CheckoutStep2GPS
 import com.modcom.medilabsapp.LabTestsActivity
 import com.modcom.medilabsapp.R
 import com.modcom.medilabsapp.SingleLabTest
+import com.modcom.medilabsapp.helpers.PrefsHelper
 import com.modcom.medilabsapp.models.Dependant
 import com.modcom.medilabsapp.models.Lab
 import com.modcom.medilabsapp.models.LabTests
@@ -43,22 +46,25 @@ class DependantAdapter(var context: Context):
          dep_name.text = item.surname
          dep_others.text = item.others
          dep_dob.text = item.dob
-//         holder.itemView.setOnClickListener {
-//             val i = Intent(context, SingleLabTest::class.java)
-//             i.putExtra("lab_id", item.lab_id)
-//             i.putExtra("test_id", item.test_id)
-//             i.putExtra("test_discount", item.test_discount)
-//             i.putExtra("test_cost", item.test_cost)
-//             i.putExtra("test_name", item.test_name)
-//             i.putExtra("test_description", item.test_description)
-//             i.putExtra("availability", item.availability)
-//             i.putExtra("more_info", item.more_info)
-//             i.putExtra("reg_date", item.reg_date)
-//             i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-//             context.startActivity(i)
-//         }//end
-       // Toast.makeText(context, "yyy"+item.test_cost, Toast.LENGTH_SHORT).show()
-    }
+         holder.itemView.setOnClickListener {
+             ////Is confirmation dialog Needed?
+             val builder = AlertDialog.Builder(context)
+             builder.setTitle("Confirm")
+             builder.setMessage("Are you sure to Pick ${item.surname}")
+             builder.setPositiveButton("Yes") { dialog, which ->
+                 PrefsHelper.savePrefs(context, "dependant_id", item.dependant_id)
+                 val i = Intent(context, CheckoutStep2GPS::class.java)
+                 i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                 context.startActivity(i)
+                 dialog.dismiss()
+             }//end Yes
+             builder.setNegativeButton("No") {dialog, which ->
+                dialog.dismiss()
+             }//end No
+             val alertDialog = builder.create()
+             alertDialog.show()
+         }//end Listner
+    }//end bind
 
     override fun getItemCount(): Int {
         return itemList.size  //Count how may Items in the List

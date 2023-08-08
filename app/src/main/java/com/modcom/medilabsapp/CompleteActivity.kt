@@ -2,28 +2,15 @@ package com.modcom.medilabsapp
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import org.bouncycastle.jce.provider.BouncyCastleProvider
-import javax.crypto.Cipher
-import javax.crypto.spec.SecretKeySpec
-import java.util.Base64
-
-import android.view.View
-import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.annotation.RequiresApi
-import com.google.android.material.textview.MaterialTextView
 import com.modcom.medilabsapp.constants.Constants
 import com.modcom.medilabsapp.helpers.ApiHelper
 import com.modcom.medilabsapp.helpers.PrefsHelper
-import com.modcom.medilabsapp.helpers.SQLiteCartHelper
 import org.json.JSONArray
 import org.json.JSONObject
-import java.security.Security
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.CountDownLatch
-import javax.crypto.spec.IvParameterSpec
+
 
 class CompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,8 +29,8 @@ class CompleteActivity : AppCompatActivity() {
             val where_taken = PrefsHelper.getPrefs(this, "where_taken")
             val latitude = PrefsHelper.getPrefs(this, "latitude")
             val longitude = PrefsHelper.getPrefs(this, "longitude")
-            val dependant_id = 2
-            val invoice_no = "45454545"
+            val dependant_id = PrefsHelper.getPrefs(this, "dependant_id")
+            val invoice_no = generateInvoiceNumber() //Autogenerate
 
             val helper = ApiHelper(this)
             val api = Constants.BASE_URL + "/make_booking"
@@ -91,6 +78,5 @@ class CompleteActivity : AppCompatActivity() {
         // Combine the timestamp and random number to create the invoice number
         return "INV-$timestamp-$randomNumber"
     }
-
-
-}
+    //github.com/modcomlearning/MediLabApp
+}//end class

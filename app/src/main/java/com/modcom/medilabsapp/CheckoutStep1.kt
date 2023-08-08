@@ -102,8 +102,15 @@ class CheckoutStep1 : AppCompatActivity() {
                 PrefsHelper.savePrefs(applicationContext, "where_taken", where_taken)
                 PrefsHelper.savePrefs(applicationContext, "booked_for", booked_for)
                 if (isLocationEnabled()) {
-                    startActivity(Intent(applicationContext, CheckoutStep2GPS::class.java))
-                }
+                    if (booked_for=="Self"){
+                        PrefsHelper.savePrefs(applicationContext, "dependant_id", "")
+                        startActivity(Intent(applicationContext, CheckoutStep2GPS::class.java))
+                    }
+                    else {
+                        //Direct the user to pick a dependant
+                        startActivity(Intent(applicationContext, ViewDependants::class.java))
+                    }//end else
+                }//end if Location enabled
                 else {
                     Toast.makeText(applicationContext, "GPS Is OFF",
                         Toast.LENGTH_SHORT).show()
