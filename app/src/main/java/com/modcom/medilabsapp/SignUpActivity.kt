@@ -100,6 +100,8 @@ class SignUpActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(result: String?) {
+                        Toast.makeText(applicationContext, result.toString(),
+                            Toast.LENGTH_SHORT).show()
                     }
                 });
 

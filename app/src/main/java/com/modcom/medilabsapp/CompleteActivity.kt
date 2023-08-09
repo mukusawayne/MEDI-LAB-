@@ -1,7 +1,9 @@
 package com.modcom.medilabsapp
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.modcom.medilabsapp.constants.Constants
 import com.modcom.medilabsapp.helpers.ApiHelper
@@ -17,16 +19,19 @@ class CompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_complete)
+
         // Get the required payload to make booking from the Shared preferences
         // Payload
             //Lets get to SQLIte, fetch the Tests Picked by user
             val sqllitehelper = SQLiteCartHelper(applicationContext)
             val items = sqllitehelper.getAllItems()
             val invoice_no = generateInvoiceNumber() //Autogenerate
-            items.forEach(){
+            val numItems = items.size
+            items.forEachIndexed { index, labTests ->
+            //How many Items do you have?
                 // Capture test ID/Lab ID at a given Loop
-            val test_id = it.test_id
-            val lab_id = it.lab_id
+            val test_id = labTests.test_id
+            val lab_id = labTests.lab_id
 
             val member_id = PrefsHelper.getPrefs(this, "member_id")
             val date = PrefsHelper.getPrefs(this, "date")
@@ -60,13 +65,33 @@ class CompleteActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(result: String?) {
-                    Toast.makeText(applicationContext, result.toString(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "Error:"+result.toString(),
+                        Toast.LENGTH_SHORT).show()
+                    Log.d("failureerrors", result.toString())
                 }
 
                 override fun onSuccess(result: JSONArray?) {
 
                 }
              })//end post
+                //Index counts from zero
+             if (index == (numItems-1)){
+                 Toast.makeText(applicationContext, "Processing Done", Toast.LENGTH_SHORT).show()
+                 startActivity(Intent(applicationContext, Payment::class.java))
+                 finish()
+                 //Make sure booking works
+                 //Create a single item XML for singlebooking.xml
+                 // include appointment_date, appointment_time, status in singlebooking.xml
+                 //Do a Booking Model should follow the mybooking API response
+                 //Do an Adapter
+                 //Do MyBookings Activity, to show the booking.
+                 //Reference: ViewDependants.
+                 //Intent from Screen2, using Skip button
+                 //Payment, Themes, Publishing, Github
+                 //MyBookings
+             }//end
+
+
             }//end for each
     }//end oncreate
 

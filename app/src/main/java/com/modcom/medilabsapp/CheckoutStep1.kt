@@ -158,6 +158,9 @@ class CheckoutStep1 : AppCompatActivity() {
 
     //Time Functions
 
+    //justpaste.it/6l88f
+    //Check For Connection
+
 }//end class
 
 

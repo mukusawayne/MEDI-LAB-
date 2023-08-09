@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -31,6 +32,8 @@ class LabTestsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lab_tests)
+
+
         progress = findViewById(R.id.progress)
         recyclerView = findViewById(R.id.recycler)
         labtestAdapter = LabTestsAdapter(applicationContext)
@@ -95,7 +98,9 @@ class LabTestsActivity : AppCompatActivity() {
             }
 
             override fun onFailure(result: String?) {
-
+                Toast.makeText(applicationContext, "Error:"+result.toString(),
+                    Toast.LENGTH_SHORT).show()
+                Log.d("failureerrors", result.toString())
             }
         })
     }//end fetch

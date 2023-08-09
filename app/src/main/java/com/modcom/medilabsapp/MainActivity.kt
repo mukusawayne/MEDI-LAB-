@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -154,6 +155,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(result: String?) {
+                Toast.makeText(applicationContext, "Error:"+result.toString(),
+                    Toast.LENGTH_SHORT).show()
+                Log.d("failureerrors", result.toString())
                 progress.visibility = View.GONE
             }
 

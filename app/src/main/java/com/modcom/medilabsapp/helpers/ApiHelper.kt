@@ -17,6 +17,54 @@ class ApiHelper(var context: Context) {
         val con_body = StringEntity(jsonData.toString())
         val token = PrefsHelper.getPrefs(context, "refresh_token")
         client.addHeader("Authorization", "Bearer $token")
+
+        //post to API
+        client.post(context, api, con_body, "application/json",
+            object : JsonHttpResponseHandler() {
+                override fun onSuccess(
+                    statusCode: Int,
+                    headers: Array<out Header>?,
+                    response: JSONArray?
+                ) {
+                    callBack.onSuccess(response)
+                    //Toast.makeText(context, "Response $response ", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onSuccess(
+                    statusCode: Int,
+                    headers: Array<out Header>?,
+                    response: JSONObject?
+                ) {
+                    callBack.onSuccess(response)
+                }
+
+                override fun onFailure(
+                    statusCode: Int,
+                    headers: Array<out Header>?,
+                    throwable: Throwable?,
+                    errorResponse: JSONObject?
+                ) {
+                    callBack.onFailure(errorResponse.toString())
+                    //super.onFailure(statusCode, headers, throwable, errorResponse)
+                    //Todo handle the error
+                    Toast.makeText(
+                        context,
+                        "Error Occurred" + throwable.toString(),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    // progressbar.visibility = View.GONE
+                }
+            })
+    }//END POST
+
+    //Requires Access Token
+    fun post2(api: String, jsonData: JSONObject, callBack: CallBack) {
+        Toast.makeText(context, "Please Wait for response", Toast.LENGTH_LONG).show()
+        val client = AsyncHttpClient(true, 80, 443)
+        val con_body = StringEntity(jsonData.toString())
+        val token = PrefsHelper.getPrefs(context, "access_token")
+        client.addHeader("Authorization", "Bearer $token")
+
         //post to API
         client.post(context, api, con_body, "application/json",
             object : JsonHttpResponseHandler() {

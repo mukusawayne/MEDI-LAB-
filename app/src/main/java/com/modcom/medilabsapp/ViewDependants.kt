@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -91,7 +92,9 @@ class ViewDependants : AppCompatActivity() {
             }
 
             override fun onFailure(result: String?) {
-
+                Toast.makeText(applicationContext, "Error:"+result.toString(),
+                    Toast.LENGTH_SHORT).show()
+                Log.d("failureerrors", result.toString())
             }
         })
     }//end fetch
