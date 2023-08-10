@@ -20,6 +20,12 @@
             android:padding="10dp"
             android:id="@+id/mydependants"/>
 
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My Bookings"
+            android:padding="10dp"
+            android:id="@+id/mybookings"/>
         
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"

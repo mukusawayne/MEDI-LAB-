@@ -11,6 +11,7 @@ import android.widget.*
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.modcom.medilabsapp.MainActivity
+import com.modcom.medilabsapp.MyBookings
 import com.modcom.medilabsapp.R
 import com.modcom.medilabsapp.ViewDependants
 import com.modcom.medilabsapp.constants.Constants
@@ -42,6 +43,11 @@ class DependantFragment : Fragment() {
         val mydependants  = root.findViewById<MaterialButton>(R.id.mydependants)
         mydependants.setOnClickListener {
             startActivity(Intent(requireContext(), ViewDependants::class.java))
+        }
+
+        val mybookings  = root.findViewById<MaterialButton>(R.id.mybookings)
+        mybookings.setOnClickListener {
+            startActivity(Intent(requireContext(), MyBookings::class.java))
         }
 
         //post to API
