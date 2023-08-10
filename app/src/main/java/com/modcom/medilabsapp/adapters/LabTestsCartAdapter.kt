@@ -19,10 +19,8 @@ import com.modcom.medilabsapp.models.LabTests
 class LabTestsCartAdapter(var context: Context):
     RecyclerView.Adapter<LabTestsCartAdapter.ViewHolder>() {
 
-
     //Create a List and connect it with our model
     var itemList : List<LabTests> = listOf() //Its empty
-
     //Create a Class here, will hold our views in single_lab xml
     inner class  ViewHolder(itemView: View):  RecyclerView.ViewHolder(itemView)
 
@@ -54,8 +52,6 @@ class LabTestsCartAdapter(var context: Context):
             //Go to Helper and reload the MyCart Activity in clearCartById fun
 
         }
-
-
 
        // Toast.makeText(context, "yyy"+item.test_cost, Toast.LENGTH_SHORT).show()
     }
