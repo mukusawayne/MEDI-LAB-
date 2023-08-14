@@ -4,13 +4,17 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
+import com.google.gson.GsonBuilder
 import com.modcom.medilabsapp.constants.Constants
 import com.modcom.medilabsapp.helpers.ApiHelper
 import com.modcom.medilabsapp.helpers.PrefsHelper
+import com.modcom.medilabsapp.models.Lab
+import com.modcom.medilabsapp.models.Locations
 import org.json.JSONArray
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -21,11 +25,10 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var editTextDate: EditText
     private lateinit var spinner: Spinner
     private lateinit var selectedItemText: TextView
+    private lateinit var locations: List<Locations>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-
-
         //link to Login while in Register.
         val linktologin = findViewById<MaterialTextView>(R.id.linktologin)
         linktologin.setOnClickListener {
@@ -44,13 +47,40 @@ class SignUpActivity : AppCompatActivity() {
         spinner = findViewById(R.id.spinner)
         selectedItemText = findViewById(R.id.selectedItemText)
         // Sample data for the spinner
-        val data = listOf("1", "2", "3", "4", "5")// pending
+
+        //Fetch Locations and Bring them here
+        val helper = ApiHelper(applicationContext)
+        val body = JSONObject()
+        val api = Constants.BASE_URL+"/locations"
+        helper.post(api, body,object: ApiHelper.CallBack{
+            override fun onSuccess(result: JSONArray?) {
+                //JSON Array Is Returned - Locations
+                    // Convert JSONArray to ArrayList<Locations>
+                    val gson = GsonBuilder().create()
+                    locations = gson.fromJson(result.toString(),
+                        Array<Locations>::class.java).toList()
+
+                val locationNames = locations.map { it.location }
+
+                val adapter = ArrayAdapter(applicationContext,
+                    android.R.layout.simple_spinner_item, locationNames)
+                // Specify the layout to use when the list of choices appears
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                // Set the adapter to the spinner
+                spinner.adapter = adapter
+            }
+
+            override fun onSuccess(result: JSONObject?) {
+               //JSON Object for No Locations
+            }
+
+            override fun onFailure(result: String?) {
+
+            }
+        })//end
+        //val data: List<String> = listOf("1", "2", "3", "4", "5")// pending
         // Create an ArrayAdapter using the sample data
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, data)
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        // Set the adapter to the spinner
-        spinner.adapter = adapter
+
 
         val create = findViewById<MaterialButton>(R.id.create)
         create.setOnClickListener {  //where do we close it?
@@ -63,6 +93,20 @@ class SignUpActivity : AppCompatActivity() {
             val confirm = findViewById<TextInputEditText>(R.id.confirm)
             val female = findViewById<RadioButton>(R.id.radioFemale)
             val male = findViewById<RadioButton>(R.id.radioMale)
+            var location_id = ""
+            spinner.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    val selectedLocation = locations[p2]
+                    location_id = selectedLocation.location_id
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    Toast.makeText(applicationContext,
+                        "Please Select a location", Toast.LENGTH_SHORT).show()
+                }
+            }//end
+
+
             var gender = "N/A"
             if (female.isChecked) {
                 gender = "Female"
@@ -87,7 +131,7 @@ class SignUpActivity : AppCompatActivity() {
                 body.put("dob", editTextDate.text.toString())
                 body.put("password", password.text.toString())
                 body.put("gender", gender)
-                body.put("location_id", spinner.selectedItem.toString())
+                body.put("location_id", location_id)
 
 
                 helper.post(api, body, object : ApiHelper.CallBack {
