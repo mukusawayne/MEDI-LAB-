@@ -72,6 +72,7 @@ class SignUpActivity : AppCompatActivity() {
 
             override fun onSuccess(result: JSONObject?) {
                //JSON Object for No Locations
+
             }
 
             override fun onFailure(result: String?) {
@@ -81,6 +82,19 @@ class SignUpActivity : AppCompatActivity() {
         //val data: List<String> = listOf("1", "2", "3", "4", "5")// pending
         // Create an ArrayAdapter using the sample data
 
+
+        var location_id = ""
+        spinner.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                val selectedLocation = locations[p2]
+                location_id = selectedLocation.location_id
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                Toast.makeText(applicationContext,
+                    "Please Select a location", Toast.LENGTH_SHORT).show()
+            }
+        }//end
 
         val create = findViewById<MaterialButton>(R.id.create)
         create.setOnClickListener {  //where do we close it?
@@ -93,18 +107,6 @@ class SignUpActivity : AppCompatActivity() {
             val confirm = findViewById<TextInputEditText>(R.id.confirm)
             val female = findViewById<RadioButton>(R.id.radioFemale)
             val male = findViewById<RadioButton>(R.id.radioMale)
-            var location_id = ""
-            spinner.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
-                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    val selectedLocation = locations[p2]
-                    location_id = selectedLocation.location_id
-                }
-
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                    Toast.makeText(applicationContext,
-                        "Please Select a location", Toast.LENGTH_SHORT).show()
-                }
-            }//end
 
 
             var gender = "N/A"
@@ -178,5 +180,5 @@ class SignUpActivity : AppCompatActivity() {
         return dateFormat.format(calendar.time)
     }
 
-
+  //justpaste.it/d1lud
 }//end class
