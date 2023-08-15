@@ -145,6 +145,7 @@ class CheckoutStep1 : AppCompatActivity() {
             calendar.get(Calendar.DAY_OF_MONTH)
         )
         // Show the date picker dialog
+        datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000;
         datePickerDialog.show()
     }
 

@@ -75,7 +75,7 @@ class LabTestsActivity : AppCompatActivity() {
         val body = JSONObject()
         //Retrieve the id from Intent Extras
         val id = intent.extras?.getString("key1")
-        Toast.makeText(applicationContext, "ID $id", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(applicationContext, "ID $id", Toast.LENGTH_SHORT).show()
         //provide the ID to the API
         body.put("lab_id", id) //NB: 4 is static
         val helper = ApiHelper(applicationContext)

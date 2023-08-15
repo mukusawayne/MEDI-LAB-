@@ -8,12 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.app.ActivityCompat.finishAffinity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
-import com.modcom.medilabsapp.MainActivity
-import com.modcom.medilabsapp.MyBookings
-import com.modcom.medilabsapp.R
-import com.modcom.medilabsapp.ViewDependants
+import com.modcom.medilabsapp.*
 import com.modcom.medilabsapp.constants.Constants
 import com.modcom.medilabsapp.helpers.ApiHelper
 import com.modcom.medilabsapp.helpers.PrefsHelper
@@ -85,6 +83,16 @@ class DependantFragment : Fragment() {
                 }
 
                 override fun onFailure(result: String?) {
+                    Toast.makeText(requireContext(),
+                        result.toString(), Toast.LENGTH_SHORT).show()
+                    val json = JSONObject(result.toString())
+                    val msg = json.opt("msg")
+                    //TODO
+                    if (msg == "Token has Expired"){
+                        PrefsHelper.clearPrefs(requireContext())
+                        startActivity(Intent(requireContext(), SignInActivity::class.java))
+                        finishAffinity(requireActivity())
+                    }
                 }
             });
 

@@ -1,5 +1,6 @@
 package com.modcom.medilabsapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -9,6 +10,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -93,10 +95,17 @@ class MyBookings : AppCompatActivity() {
             }
 
             override fun onFailure(result: String?) {
-                Toast.makeText(applicationContext, "Error:"+result.toString(),
-                    Toast.LENGTH_SHORT).show()
-                Log.d("failureerrors", result.toString())
-            }
+                Toast.makeText(applicationContext,
+                    result.toString(), Toast.LENGTH_SHORT).show()
+                val json = JSONObject(result.toString())
+                val msg = json.opt("msg")
+                //TODO
+                if (msg == "Token has Expired"){
+                    PrefsHelper.clearPrefs(applicationContext)
+                    startActivity(Intent(applicationContext, SignInActivity::class.java))
+                    finishAffinity()
+                }
+            }//end
         })
     }//end fetch
 

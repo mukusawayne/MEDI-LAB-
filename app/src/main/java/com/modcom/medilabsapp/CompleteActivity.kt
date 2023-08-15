@@ -19,13 +19,16 @@ class CompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_complete)
-
+        //You must have internet
+        //Use NetworkHelper
         // Get the required payload to make booking from the Shared preferences
         // Payload
             //Lets get to SQLIte, fetch the Tests Picked by user
             val sqllitehelper = SQLiteCartHelper(applicationContext)
             val items = sqllitehelper.getAllItems()
             val invoice_no = generateInvoiceNumber() //Autogenerate
+            //Save Invoice No  to Prefs
+            PrefsHelper.savePrefs(applicationContext, "invoice_no", invoice_no)
             val numItems = items.size
             items.forEachIndexed { index, labTests ->
             //How many Items do you have?
@@ -65,9 +68,16 @@ class CompleteActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(result: String?) {
-                    Toast.makeText(applicationContext, "Error:"+result.toString(),
-                        Toast.LENGTH_SHORT).show()
-                    Log.d("failureerrors", result.toString())
+                    Toast.makeText(applicationContext,
+                        result.toString(), Toast.LENGTH_SHORT).show()
+                    val json = JSONObject(result.toString())
+                    val msg = json.opt("msg")
+                    //TODO
+                    if (msg == "Token has Expired"){
+                        PrefsHelper.clearPrefs(applicationContext)
+                        startActivity(Intent(applicationContext, SignInActivity::class.java))
+                        finishAffinity()
+                    }
                 }
 
                 override fun onSuccess(result: JSONArray?) {

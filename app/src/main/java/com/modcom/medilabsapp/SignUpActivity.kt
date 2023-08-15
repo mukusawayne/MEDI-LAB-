@@ -170,6 +170,7 @@ class SignUpActivity : AppCompatActivity() {
             calendar.get(Calendar.DAY_OF_MONTH)
         )
         // Show the date picker dialog
+        datePickerDialog.datePicker.maxDate = System.currentTimeMillis() - 568080000000;
         datePickerDialog.show()
     }
 

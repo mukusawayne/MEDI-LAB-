@@ -1,5 +1,6 @@
 package com.modcom.medilabsapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -94,6 +95,15 @@ class ViewDependants : AppCompatActivity() {
             override fun onFailure(result: String?) {
                 Toast.makeText(applicationContext, "Error:"+result.toString(),
                     Toast.LENGTH_SHORT).show()
+                //It returns a msg : Token Expired
+                val json = JSONObject(result.toString())
+                val msg = json.opt("msg")
+                //TODO
+                if (msg == "Token has Expired"){
+                     PrefsHelper.clearPrefs(applicationContext)
+                     startActivity(Intent(applicationContext, SignInActivity::class.java))
+                    finishAffinity()
+                }
                 Log.d("failureerrors", result.toString())
             }
         })
