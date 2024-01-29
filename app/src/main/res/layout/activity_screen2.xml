@@ -48,7 +48,7 @@
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="This is professional mobile onboarding screens.this screens useing on food delivery app."
+        android:text="Ee offer quality servives for affordable prices."
         android:textAlignment="textStart"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
